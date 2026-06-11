@@ -127,7 +127,10 @@ function navigate(page, params = {}) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
 
   // Scroll to top
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({
+    top: 0,
+    behavior: isMobile() ? 'auto' : 'smooth'
+  });
 
   state.currentPage = page;
 
@@ -296,6 +299,9 @@ function starsHTML(rating) {
   const half  = rating % 1 >= 0.5 ? 1 : 0;
   const empty = 5 - full - half;
   return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(empty);
+}
+function isMobile() {
+  return window.innerWidth <= 768;
 }
 
 function productCardHTML(p, showRemove = false) {
