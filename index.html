@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexora Electronics — Next-Gen Tech Store</title>
+  <meta name="description" content="Premium electronics store — Smartphones, Laptops, Headphones, Gaming & more." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<!-- Mesh Background -->
+<div class="mesh-bg"></div>
+
+<!-- Page Loader -->
+<div id="page-loader">
+  <div class="loader-logo">⚡ Nexora</div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<!-- Toast Container -->
+<div id="toast-container"></div>
+
+<!-- ── NAVBAR ──────────────────────────────────────── -->
+<nav id="navbar">
+  <div class="nav-logo" onclick="navigate('home')">⚡ Nexora</div>
+
+  <div class="nav-search-wrap">
+    <input class="nav-search" id="globalSearch" type="text" placeholder="Search products, brands, categories…" autocomplete="off" />
+    <span class="nav-search-icon">🔍</span>
+    <div class="search-dropdown" id="searchDropdown"></div>
+  </div>
+
+  <div class="nav-actions">
+    <button class="nav-icon-btn" onclick="navigate('wishlist')" title="Wishlist">
+      🤍
+      <span class="nav-badge" id="wishlistBadge" style="display:none">0</span>
+    </button>
+    <button class="nav-icon-btn" onclick="navigate('cart')" title="Cart">
+      🛒
+      <span class="nav-badge" id="cartBadge" style="display:none">0</span>
+    </button>
+    <button class="nav-icon-btn" onclick="navigate('orders')" title="My Orders">📦</button>
+    <button class="nav-btn-primary" onclick="navigate('login')">Sign In</button>
+    <button class="nav-menu-btn" id="mobileMenuBtn">☰</button>
+  </div>
+</nav>
+
+<!-- ── APP WRAPPER ─────────────────────────────────── -->
+<div id="app">
+
+  <!-- ════════════════════════════
+       HOME PAGE
+  ════════════════════════════ -->
+  <div class="page active" id="page-home">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <span class="hero-eyebrow-dot"></span>
+          New Arrivals 2026
+        </div>
+        <h1 class="hero-title">
+          <span class="hero-title-grad">Next-Gen Tech</span><br/>
+          Lives Here
+        </h1>
+        <p class="hero-desc">
+          Discover the latest smartphones, laptops, audio gear and more — curated for those who demand the best. Free delivery. Zero compromises.
+        </p>
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-lg" onclick="navigate('categories')">Explore Products</button>
+          <button class="btn btn-secondary btn-lg" onclick="navigate('categories')">Browse Categories</button>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num">500+</div>
+            <div class="hero-stat-label">Premium Products</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">50+</div>
+            <div class="hero-stat-label">Top Brands</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">2M+</div>
+            <div class="hero-stat-label">Happy Customers</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-floating-card">
+          <div class="hfc-label">Today's Top Deal</div>
+          <div class="hfc-val">iPhone 16 Pro</div>
+          <div class="hfc-sub">↓ 12% OFF — ₹1,09,900</div>
+        </div>
+        <div class="hero-floating-card">
+          <div class="hfc-label">Trending Now</div>
+          <div class="hfc-val">Sony WH-1000XM6</div>
+          <div class="hfc-sub">🔥 542 sold today</div>
+        </div>
+        <div class="hero-floating-card">
+          <div class="hfc-label">New Drop</div>
+          <div class="hfc-val">MacBook Air M4</div>
+          <div class="hfc-sub">✅ In Stock</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee-wrap">
+      <div class="marquee-track" id="marqueeTrack"></div>
+    </div>
+
+    <!-- Categories -->
+    <section class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Shop by Category</div>
+          <div class="section-sub">Everything you need, all in one place</div>
+        </div>
+        <span class="view-all-link" onclick="navigate('categories')">View All →</span>
+      </div>
+      <div class="cat-grid" id="homeCatGrid"></div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="section" style="padding-top:0">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Featured Products</div>
+          <div class="section-sub">Hand-picked by our tech experts</div>
+        </div>
+        <span class="view-all-link" onclick="navigate('products', {category:'all'})">View All →</span>
+      </div>
+      <div class="grid-4" id="featuredGrid"></div>
+    </section>
+
+    <!-- Deals of the Day -->
+    <section class="section" style="padding-top:0">
+      <div class="section-header">
+        <div>
+          <div class="section-title">⚡ Deals of the Day</div>
+          <div class="section-sub">Limited time offers — grab them before they're gone</div>
+        </div>
+        <div class="deal-timer">
+          <div class="timer-block"><div class="timer-num" id="timerH">08</div><div class="timer-label">HRS</div></div>
+          <div class="timer-sep">:</div>
+          <div class="timer-block"><div class="timer-num" id="timerM">32</div><div class="timer-label">MIN</div></div>
+          <div class="timer-sep">:</div>
+          <div class="timer-block"><div class="timer-num" id="timerS">47</div><div class="timer-label">SEC</div></div>
+        </div>
+      </div>
+      <div class="grid-4" id="dealsGrid"></div>
+    </section>
+
+    <!-- Feature Strip -->
+    <section class="section-sm">
+      <div class="feature-strip">
+        <div class="feature-item">
+          <div class="feature-icon-wrap">🚚</div>
+          <div><div class="feature-title">Free Delivery</div><div class="feature-desc">On orders above ₹499</div></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-wrap">🔄</div>
+          <div><div class="feature-title">Easy Returns</div><div class="feature-desc">10-day hassle-free returns</div></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-wrap">🔒</div>
+          <div><div class="feature-title">Secure Payments</div><div class="feature-desc">256-bit SSL encryption</div></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-wrap">🎧</div>
+          <div><div class="feature-title">24/7 Support</div><div class="feature-desc">Always here to help</div></div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page-home -->
+
+
+  <!-- ════════════════════════════
+       CATEGORIES PAGE
+  ════════════════════════════ -->
+  <div class="page" id="page-categories">
+    <div class="categories-hero">
+      <div class="section-title">All Categories</div>
+      <div class="section-sub">Browse our full range of tech categories</div>
+    </div>
+    <div class="section-sm" style="padding-top:0">
+      <div class="cat-big-grid" id="catBigGrid"></div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════
+       CATEGORY (BRANDS) PAGE
+  ════════════════════════════ -->
+  <div class="page" id="page-category">
+    <div class="breadcrumb" id="catBreadcrumb"></div>
+    <div class="section">
+      <div class="section-header">
+        <div>
+          <div class="section-title" id="catPageTitle">Category</div>
+          <div class="section-sub" id="catPageSub">Select a brand to browse products</div>
+        </div>
+      </div>
+      <div class="brand-list" id="brandGrid"></div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════
+       PRODUCTS LISTING PAGE
+  ════════════════════════════ -->
+  <div class="page" id="page-products">
+    <div class="breadcrumb" id="plpBreadcrumb"></div>
+    <div class="plp-layout">
+      <!-- Sidebar -->
+      <aside class="filter-sidebar">
+        <div class="filter-title">
+          Filters
+          <span class="filter-clear" onclick="clearFilters()">Clear All</span>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-group-title">Price Range</div>
+          <div class="price-range-wrap">
+            <input type="range" class="price-range-slider" id="priceRange" min="0" max="200000" value="200000" step="1000" oninput="filterProducts()" />
+            <div style="display:flex;justify-content:space-between;font-size:0.78rem;color:var(--text-muted);margin-top:6px">
+              <span>₹0</span>
+              <span id="priceRangeVal">Up to ₹2,00,000</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-group-title">Brand</div>
+          <div id="brandFilterList"></div>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-group-title">Rating</div>
+          <div id="ratingFilterList">
+            <label class="filter-option"><input type="radio" name="ratingFilter" value="4" onchange="filterProducts()" /> 4★ & above</label>
+            <label class="filter-option"><input type="radio" name="ratingFilter" value="3" onchange="filterProducts()" /> 3★ & above</label>
+            <label class="filter-option"><input type="radio" name="ratingFilter" value="0" checked onchange="filterProducts()" /> All</label>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main -->
+      <div class="plp-main">
+        <div class="plp-toolbar">
+          <div class="plp-result-count" id="plpResultCount">Showing 0 products</div>
+          <div class="plp-sort">
+            <span class="sort-chip active" onclick="setSortChip(this,'featured')">Featured</span>
+            <span class="sort-chip" onclick="setSortChip(this,'price-asc')">Price ↑</span>
+            <span class="sort-chip" onclick="setSortChip(this,'price-desc')">Price ↓</span>
+            <span class="sort-chip" onclick="setSortChip(this,'rating')">Top Rated</span>
+          </div>
+        </div>
+        <div class="grid-auto" id="plpGrid"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════
+       PRODUCT DETAIL PAGE
+  ════════════════════════════ -->
+  <div class="page" id="page-product">
+    <div class="breadcrumb" id="pdpBreadcrumb"></div>
+    <div class="pdp-layout" id="pdpLayout"></div>
+    <!-- Related Products -->
+    <div class="section" style="padding-top:20px" id="relatedSection">
+      <div class="section-header">
+        <div class="section-title">You May Also Like</div>
+      </div>
+      <div class="grid-4" id="relatedGrid"></div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════
+       CART PAGE
+  ════════════════════════════ -->
+  <div class="page" id="page-cart">
+    <div class="section-sm">
+      <div class="section-title">🛒 My Cart</div>
+    </div>
+    <div class="cart-layout">
+      <div>
+        <div id="cartItemsList"></div>
+        <div class="empty-state" id="cartEmpty" style="display:none">
+          <div class="empty-icon">🛒</div>
+          <div class="empty-title">Your cart is empty</div>
+          <div class="empty-sub">Add some amazing products to get started</div>
+          <button class="btn btn-primary" onclick="navigate('categories')">Browse Products</button>
+        </div>
+      </div>
+      <div class="cart-summary" id="cartSummary">
+        <div class="cart-summary-title">Order Summary</div>
+        <div class="summary-row"><span class="label">Subtotal</span><span id="cartSubtotal">₹0</span></div>
+        <div class="summary-row"><span class="label">Discount</span><span style="color:var(--accent-green)" id="cartDiscount">−₹0</span></div>
+        <div class="summary-row"><span class="label">Delivery</span><span class="free" id="cartDelivery">FREE</span></div>
+        <div class="summary-row"><span class="label">Tax (18%)</span><span id="cartTax">₹0</span></div>
+        <div class="summary-row total"><span>Total</span><span id="cartTotal">₹0</span></div>
+        <div class="coupon-row">
+          <input class="coupon-input" id="couponInput" placeholder="Enter coupon code" />
+          <button class="btn btn-ghost btn-sm" onclick="applyCoupon()">Apply</button>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="navigate('checkout')">Proceed to Checkout →</button>
+        <button class="btn btn-secondary btn-full" style="margin-top:8px" onclick="navigate('categories')">Continue Shopping</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════
+       WISHLIST PAGE
+  ════════════════════════════ -->
+  <div class="page" id="page-wishlist">
+    <div class="section-sm">
+      <div class="section-title">🤍 My Wishlist</div>
+    </div>
+    <div class="section-sm" style="padding-top:0">
+      <div class="wishlist-grid" id="wishlistGrid"></div>
+      <div class="empty-state" id="wishlistEmpty" style="display:none">
+        <div class="empty-icon">🤍</div>
+        <div class="empty-title">Your wishlist is empty</div>
+        <div class="empty-sub">Save products you love to your wishlist</div>
+        <button class="btn btn-primary" onclick="navigate('categories')">Explore Products</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════
+       CHECKOUT PAGE
+  ════════════════════════════ -->
+  <div class="page" id="page-checkout">
+    <div class="section-sm">
+      <div class="section-title">Checkout</div>
+    </div>
+    <div class="checkout-layout">
+      <div>
+        <!-- Steps -->
+        <div class="checkout-steps" id="checkoutSteps">
+          <div class="step-item active" data-step="1"><div class="step-num">1</div><span>Address</span></div>
+          <div class="step-item" data-step="2"><div class="step-num">2</div><span>Delivery</span></div>
+          <div class="step-item" data-step="3"><div class="step-num">3</div><span>Payment</span></div>
+          <div class="step-item" data-step="4"><div class="step-num">4</div><span>Review</span></div>
+        </div>
+
+        <!-- Step 1: Address -->
+        <div class="checkout-step-panel" id="checkoutStep1">
+          <div class="checkout-card">
+            <div class="checkout-card-title">📍 Shipping Address</div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">First Name</label><input class="form-input" id="fnameInput" placeholder="Nandita" /></div>
+              <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" id="lnameInput" placeholder="Ghosh" /></div>
+            </div>
+            <div class="form-group"><label class="form-label">Email</label><input class="form-input" id="emailInput" type="email" placeholder="nandita@example.com" /></div>
+            <div class="form-group"><label class="form-label">Phone</label><input class="form-input" id="phoneInput" placeholder="+91 98765 43210" /></div>
+            <div class="form-group"><label class="form-label">Address Line 1</label><input class="form-input" id="addr1Input" placeholder="Flat / House No., Street" /></div>
+            <div class="form-group"><label class="form-label">Address Line 2</label><input class="form-input" id="addr2Input" placeholder="Locality, Area (optional)" /></div>
+            <div class="form-row">
+              <div class="form-group"><label class="form-label">City</label><input class="form-input" id="cityInput" placeholder="Kolkata" /></div>
+              <div class="form-group"><label class="form-label">PIN Code</label><input class="form-input" id="pinInput" placeholder="700001" /></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">State</label>
+              <select class="form-select" id="stateInput">
+                <option value="">Select State</option>
+                <option>West Bengal</option><option>Maharashtra</option><option>Karnataka</option>
+                <option>Tamil Nadu</option><option>Delhi</option><option>Gujarat</option>
+                <option>Rajasthan</option><option>Uttar Pradesh</option><option>Telangana</option>
+                <option>Kerala</option><option>Andhra Pradesh</option><option>Madhya Pradesh</option>
+              </select>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="checkoutNext(2)">Continue to Delivery →</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Delivery -->
+        <div class="checkout-step-panel" id="checkoutStep2" style="display:none">
+          <div class="checkout-card">
+            <div class="checkout-card-title">🚚 Delivery Method</div>
+            <div class="payment-options" id="deliveryOptions">
+              <div class="pay-option selected" onclick="selectDelivery(this,'standard')">
+                <div class="pay-radio"></div>
+                <div class="pay-icon">📦</div>
+                <div><div class="pay-label">Standard Delivery</div><div class="pay-sub">5–7 business days • FREE</div></div>
+              </div>
+              <div class="pay-option" onclick="selectDelivery(this,'express')">
+                <div class="pay-radio"></div>
+                <div class="pay-icon">⚡</div>
+                <div><div class="pay-label">Express Delivery</div><div class="pay-sub">2–3 business days • ₹99</div></div>
+              </div>
+              <div class="pay-option" onclick="selectDelivery(this,'sameday')">
+                <div class="pay-radio"></div>
+                <div class="pay-icon">🏎️</div>
+                <div><div class="pay-label">Same Day Delivery</div><div class="pay-sub">By 10 PM today • ₹199</div></div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:16px">
+              <button class="btn btn-secondary" onclick="checkoutBack(1)">← Back</button>
+              <button class="btn btn-primary" style="flex:1" onclick="checkoutNext(3)">Continue to Payment →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Payment -->
+        <div class="checkout-step-panel" id="checkoutStep3" style="display:none">
+          <div class="checkout-card">
+            <div class="checkout-card-title">💳 Payment Method</div>
+            <div class="payment-options" id="paymentOptions">
+              <div class="pay-option selected" onclick="selectPayment(this,'upi')">
+                <div class="pay-radio"></div>
+                <div class="pay-icon">📲</div>
+                <div><div class="pay-label">UPI</div><div class="pay-sub">PhonePe, GPay, Paytm, BHIM</div></div>
+              </div>
+              <div class="pay-option" onclick="selectPayment(this,'card')">
+                <div class="pay-radio"></div>
+                <div class="pay-icon">💳</div>
+                <div><div class="pay-label">Credit / Debit Card</div><div class="pay-sub">Visa, Mastercard, RuPay</div></div>
+              </div>
+              <div class="pay-option" onclick="selectPayment(this,'wallet')">
+                <div class="pay-radio"></div>
+                <div class="pay-icon">👛</div>
+                <div><div class="pay-label">Wallet</div><div class="pay-sub">Paytm, Amazon Pay, Mobikwik</div></div>
+              </div>
+              <div class="pay-option" onclick="selectPayment(this,'emi')">
+                <div class="pay-radio"></div>
+                <div class="pay-icon">🏦</div>
+                <div><div class="pay-label">EMI</div><div class="pay-sub">No-cost EMI from ₹499/mo</div></div>
+              </div>
+              <div class="pay-option" onclick="selectPayment(this,'cod')">
+                <div class="pay-radio"></div>
+                <div class="pay-icon">💵</div>
+                <div><div class="pay-label">Cash on Delivery</div><div class="pay-sub">Pay when your order arrives</div></div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:16px">
+              <button class="btn btn-secondary" onclick="checkoutBack(2)">← Back</button>
+              <button class="btn btn-primary" style="flex:1" onclick="checkoutNext(4)">Review Order →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Review -->
+        <div class="checkout-step-panel" id="checkoutStep4" style="display:none">
+          <div class="checkout-card">
+            <div class="checkout-card-title">📋 Review Your Order</div>
+            <div id="reviewOrderItems"></div>
+            <div id="reviewAddressBlock" style="margin-top:16px;padding:14px;background:var(--bg-mid);border-radius:var(--radius-md);font-size:0.85rem;color:var(--text-secondary)"></div>
+            <div style="display:flex;gap:10px;margin-top:16px">
+              <button class="btn btn-secondary" onclick="checkoutBack(3)">← Back</button>
+              <button class="btn btn-primary" style="flex:1" onclick="placeOrder()">🎉 Place Order</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Summary (sticky) -->
+      <div class="cart-summary" style="position:sticky;top:calc(var(--nav-h) + 20px)">
+        <div class="cart-summary-title">Order Summary</div>
+        <div id="checkoutSummaryItems"></div>
+        <div class="summary-row"><span class="label">Subtotal</span><span id="coSubtotal">₹0</span></div>
+        <div class="summary-row"><span class="label">Discount</span><span style="color:var(--accent-green)" id="coDiscount">−₹0</span></div>
+        <div class="summary-row"><span class="label">Delivery</span><span id="coDelivery">FREE</span></div>
+        <div class="summary-row"><span class="label">Tax (18%)</span><span id="coTax">₹0</span></div>
+        <div class="summary-row total"><span>Total</span><span id="coTotal">₹0</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════
+       ORDER SUCCESS PAGE
+  ════════════════════════════ -->
+  <div class="page" id="page-success">
+    <div class="success-page">
+      <div class="success-card">
+        <div class="success-icon-wrap">✅</div>
+        <div class="success-title">Order Placed!</div>
+        <div class="success-sub">Thank you for shopping with Nexora. We'll send you updates via email.</div>
+        <div class="success-order-id">Order ID: <span id="successOrderId">#NX000000</span></div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <button class="btn btn-primary btn-full" onclick="navigate('orders')">Track My Order</button>
+          <button class="btn btn-secondary btn-full" onclick="navigate('home')">Continue Shopping</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════
+       MY ORDERS PAGE
+  ════════════════════════════ -->
+  <div class="page" id="page-orders">
+    <div class="orders-section">
+      <div class="section-header">
+        <div class="section-title">📦 My Orders</div>
+      </div>
+      <div id="ordersList"></div>
+      <div class="empty-state" id="ordersEmpty" style="display:none">
+        <div class="empty-icon">📦</div>
+        <div class="empty-title">No orders yet</div>
+        <div class="empty-sub">Your orders will appear here once you make a purchase</div>
+        <button class="btn btn-primary" onclick="navigate('home')">Start Shopping</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════
+       ORDER TRACKING PAGE
+  ════════════════════════════ -->
+  <div class="page" id="page-tracking">
+    <div class="tracking-section section">
+      <div class="section-title" id="trackingTitle">Order Tracking</div>
+      <div class="tracking-header" id="trackingHeader"></div>
+      <div class="tracking-progress" style="margin:20px 0">
+        <div class="tracking-progress-bar" id="trackProgressBar" style="width:20%"></div>
+      </div>
+      <div class="tracking-timeline" id="trackingTimeline">
+        <div class="timeline-line"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════
+       AUTH PAGES
+  ════════════════════════════ -->
+  <div class="page" id="page-login">
+    <div class="auth-page">
+      <div class="auth-card">
+        <div class="auth-logo"><span style="font-family:var(--font-display);font-size:1.8rem;font-weight:700;background:var(--gradient-btn);-webkit-background-clip:text;-webkit-text-fill-color:transparent">⚡ Nexora</span></div>
+        <div class="auth-title">Welcome back</div>
+        <div class="auth-sub">Sign in to your account to continue</div>
+
+        <button class="social-btn">🌐 Continue with Google</button>
+        <button class="social-btn">📱 Continue with Apple</button>
+
+        <div class="auth-divider">
+          <div class="auth-divider-line"></div>
+          <div class="auth-divider-text">or sign in with email</div>
+          <div class="auth-divider-line"></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" type="email" placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="password-wrap">
+            <input class="form-input" id="loginPass" type="password" placeholder="••••••••" />
+            <button class="password-toggle" onclick="togglePass('loginPass')">👁</button>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="fakeLogin()">Sign In</button>
+        <div class="auth-switch">Don't have an account? <a onclick="navigate('register')">Create one →</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-register">
+    <div class="auth-page">
+      <div class="auth-card">
+        <div class="auth-logo"><span style="font-family:var(--font-display);font-size:1.8rem;font-weight:700;background:var(--gradient-btn);-webkit-background-clip:text;-webkit-text-fill-color:transparent">⚡ Nexora</span></div>
+        <div class="auth-title">Create Account</div>
+        <div class="auth-sub">Join millions of happy Nexora shoppers</div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">First Name</label><input class="form-input" placeholder="Nandita" /></div>
+          <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" placeholder="Ghosh" /></div>
+        </div>
+        <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="you@example.com" /></div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="password-wrap">
+            <input class="form-input" id="regPass" type="password" placeholder="Create a strong password" />
+            <button class="password-toggle" onclick="togglePass('regPass')">👁</button>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="fakeRegister()">Create Account →</button>
+        <div class="auth-switch">Already have an account? <a onclick="navigate('login')">Sign in →</a></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════
+       PROFILE PAGE
+  ════════════════════════════ -->
+  <div class="page" id="page-profile">
+    <div class="profile-layout">
+      <aside class="profile-sidebar">
+        <div class="profile-avatar-wrap">
+          <div class="profile-avatar">NG</div>
+          <div class="profile-name">Nandita Ghosh</div>
+          <div class="profile-email">nandita@example.com</div>
+        </div>
+        <div class="profile-nav-item active" onclick="switchProfileTab('overview')"><span class="profile-nav-icon">🏠</span> Overview</div>
+        <div class="profile-nav-item" onclick="switchProfileTab('orders')"><span class="profile-nav-icon">📦</span> My Orders</div>
+        <div class="profile-nav-item" onclick="switchProfileTab('addresses')"><span class="profile-nav-icon">📍</span> Addresses</div>
+        <div class="profile-nav-item" onclick="switchProfileTab('wishlist')"><span class="profile-nav-icon">🤍</span> Wishlist</div>
+        <div class="profile-nav-item" onclick="switchProfileTab('settings')"><span class="profile-nav-icon">⚙️</span> Settings</div>
+      </aside>
+      <div id="profileContent">
+        <div class="checkout-card">
+          <div class="checkout-card-title">👋 Hello, Nandita!</div>
+          <p style="color:var(--text-secondary);font-size:0.9rem">Manage your account, track orders, and update preferences from your profile.</p>
+          <div class="grid-2" style="margin-top:20px;gap:12px">
+            <div style="background:var(--bg-mid);border-radius:var(--radius-md);padding:16px;text-align:center">
+              <div style="font-size:1.6rem;font-weight:700;font-family:var(--font-display)" id="profileOrderCount">0</div>
+              <div style="font-size:0.8rem;color:var(--text-muted)">Total Orders</div>
+            </div>
+            <div style="background:var(--bg-mid);border-radius:var(--radius-md);padding:16px;text-align:center">
+              <div style="font-size:1.6rem;font-weight:700;font-family:var(--font-display)" id="profileWishCount">0</div>
+              <div style="font-size:0.8rem;color:var(--text-muted)">Wishlist Items</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ════════════════════════════
+       ABOUT / SUPPORT / FAQ
+  ════════════════════════════ -->
+  <div class="page" id="page-about">
+    <div class="section" style="max-width:800px;margin:0 auto">
+      <div class="section-title">About Nexora</div>
+      <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:20px">Nexora Electronics is a next-generation electronics platform bringing the world's finest tech brands to your doorstep. Founded in 2024, we've served over 2 million customers across India with a commitment to authenticity, speed, and premium service.</p>
+      <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:20px">From the latest smartphones and laptops to audio gear, gaming accessories, and smart home devices — we curate only the best so you don't have to compromise.</p>
+      <div class="feature-strip" style="margin-top:32px">
+        <div class="feature-item"><div class="feature-icon-wrap">✅</div><div><div class="feature-title">100% Genuine</div><div class="feature-desc">Authorized reseller</div></div></div>
+        <div class="feature-item"><div class="feature-icon-wrap">🏆</div><div><div class="feature-title">Award Winning</div><div class="feature-desc">Best e-commerce 2025</div></div></div>
+        <div class="feature-item"><div class="feature-icon-wrap">🌍</div><div><div class="feature-title">Pan India</div><div class="feature-desc">Delivery to 19,000+ PIN codes</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-contact">
+    <div class="section" style="max-width:600px;margin:0 auto">
+      <div class="section-title">Contact Us</div>
+      <div class="checkout-card">
+        <div class="form-group"><label class="form-label">Name</label><input class="form-input" placeholder="Your name" /></div>
+        <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="your@email.com" /></div>
+        <div class="form-group"><label class="form-label">Subject</label><input class="form-input" placeholder="How can we help?" /></div>
+        <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Describe your issue or inquiry…"></textarea></div>
+        <button class="btn btn-primary btn-full" onclick="showToast('Message sent! We\'ll get back to you within 24 hours.','success')">Send Message</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-faq">
+    <div class="section" style="max-width:800px;margin:0 auto">
+      <div class="section-title">Frequently Asked Questions</div>
+      <div id="faqList"></div>
+    </div>
+  </div>
+
+</div><!-- /app -->
+
+
+<!-- ── FOOTER ──────────────────────────────────────── -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="nav-logo" style="font-size:1.6rem;cursor:default">⚡ Nexora</div>
+      <p class="footer-brand-desc">Next-generation electronics store. Curated tech, premium brands, unbeatable prices — delivered to your door.</p>
+      <div class="footer-social">
+        <div class="footer-social-btn">𝕏</div>
+        <div class="footer-social-btn">in</div>
+        <div class="footer-social-btn">IG</div>
+        <div class="footer-social-btn">YT</div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Shop</div>
+      <span class="footer-link" onclick="navigate('categories')">All Categories</span>
+      <span class="footer-link" onclick="navigate('products',{category:'all'})">New Arrivals</span>
+      <span class="footer-link" onclick="navigate('products',{category:'all'})">Best Sellers</span>
+      <span class="footer-link" onclick="navigate('products',{category:'all'})">Deals & Offers</span>
+    </div>
+    <div>
+      <div class="footer-col-title">Support</div>
+      <span class="footer-link" onclick="navigate('faq')">FAQs</span>
+      <span class="footer-link" onclick="navigate('contact')">Contact Us</span>
+      <span class="footer-link" onclick="navigate('orders')">Track Order</span>
+      <span class="footer-link">Returns Policy</span>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <span class="footer-link" onclick="navigate('about')">About Us</span>
+      <span class="footer-link">Careers</span>
+      <span class="footer-link">Press</span>
+      <span class="footer-link">Privacy Policy</span>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 <span>Nandita Ghosh</span>. All Rights Reserved.</div>
+    <div class="footer-credit">
+      Designed &amp; Developed by <a href="https://github.com/nanditaghosh01" target="_blank">Nandita Ghosh</a>
+      &nbsp;|&nbsp;
+      <a href="https://www.linkedin.com/in/nandita-ghosh-828a96327" target="_blank">LinkedIn</a>
+      &nbsp;|&nbsp;
+      <a href="https://github.com/nanditaghosh01" target="_blank">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
