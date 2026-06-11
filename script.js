@@ -127,10 +127,10 @@ function navigate(page, params = {}) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
 
   // Scroll to top
-  window.scrollTo({
-    top: 0,
-    behavior: isMobile() ? 'auto' : 'smooth'
-  });
+ window.scrollTo({
+  top: 0,
+  behavior: window.innerWidth < 768 ? "auto" : "smooth"
+});
 
   state.currentPage = page;
 
