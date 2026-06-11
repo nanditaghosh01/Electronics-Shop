@@ -172,25 +172,31 @@ function show(id) {
 
 // ── CURSOR ────────────────────────────────────────────────
 function initCursor() {
-  const dot  = document.getElementById('cursor-dot');
+  const dot = document.getElementById('cursor-dot');
   const ring = document.getElementById('cursor-ring');
-  let rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => {
-    dot.style.left  = e.clientX + 'px';
-    dot.style.top   = e.clientY + 'px';
-    rx += (e.clientX - rx) * 0.12;
-    ry += (e.clientY - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    requestAnimationFrame(() => {
-      rx += (e.clientX - rx) * 0.12;
-      ry += (e.clientY - ry) * 0.12;
-    });
+
+  let mouseX = 0, mouseY = 0;
+  let ringX = 0, ringY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    // dot follows instantly
+    dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
   });
-  setInterval(() => {
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-  }, 16);
+
+  function animate() {
+    // smooth follow (lerp)
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+
+    ring.style.transform = `translate(${ringX}px, ${ringY}px)`;
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
 }
 
 // ── TOAST ─────────────────────────────────────────────────
