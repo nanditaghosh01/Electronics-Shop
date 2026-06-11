@@ -1585,3 +1585,117 @@ footer {
     width: 100%;
   }
 }
+/* ================= MOBILE CORE FIX ================= */
+@media (max-width: 768px) {
+
+  body {
+    overflow-x: hidden;
+  }
+
+  .page {
+    padding: 12px;
+  }
+
+  h1, h2, h3 {
+    font-size: 90%;
+  }
+
+}
+@media (max-width: 768px) {
+
+  .grid,
+  .product-grid,
+  .plp-grid,
+  #plpGrid,
+  #featuredGrid,
+  #dealsGrid {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+}
+@media (max-width: 768px) {
+
+  .product-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .product-img-wrap {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+  }
+
+  .product-name {
+    font-size: 14px;
+  }
+
+  .product-specs {
+    display: none; /* cleaner mobile UI */
+  }
+
+}
+@media (max-width: 768px) {
+
+  #navbar {
+    flex-wrap: wrap;
+    padding: 8px;
+  }
+
+  .nav-search-wrap {
+    width: 100%;
+  }
+
+}
+@media (max-width: 768px) {
+
+  .pdp-layout {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pdp-main-img {
+    height: 250px;
+  }
+
+  .pdp-title {
+    font-size: 18px;
+  }
+
+  .pdp-actions {
+    position: sticky;
+    bottom: 70px;
+    background: #111;
+    padding: 10px;
+  }
+
+}
+@media (max-width: 768px) {
+
+  button,
+  .btn {
+    min-height: 44px;
+    font-size: 14px;
+  }
+
+}
+@media (max-width: 768px) {
+
+  .checkout-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .checkout-sidebar {
+    position: static;
+  }
+
+}
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
