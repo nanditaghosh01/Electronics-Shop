@@ -1788,12 +1788,3 @@ html, body {
 * {
   transition: 0.2s ease;
 }
-.mobile-helper {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .mobile-helper {
-    display: none; /* or show only once in toast */
-  }
-}
