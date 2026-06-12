@@ -184,21 +184,16 @@ function initCursor() {
   document.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-
     // dot follows instantly
     dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
   });
-
   function animate() {
     // smooth follow (lerp)
     ringX += (mouseX - ringX) * 0.12;
     ringY += (mouseY - ringY) * 0.12;
-
     ring.style.transform = `translate(${ringX}px, ${ringY}px)`;
-
     requestAnimationFrame(animate);
   }
-
   animate();
 }
 
