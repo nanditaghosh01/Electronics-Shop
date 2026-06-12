@@ -1788,20 +1788,3 @@ html, body {
 * {
   transition: 0.2s ease;
 }
-.mobile-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-
-  background: rgba(0, 0, 0, 0.9);
-  backdrop-filter: blur(10px);
-
-  z-index: 9999;
-
-  display: none; /* hidden by default */
-}
-.mobile-menu.active {
-  display: block;
-}
